@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- web.xml에서 listener에서service, repository 2개의 어노테이션으로 선언된 녀석만 스캔을 하도록 설정 
+	
+	<listener>
+		<listener-class> org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+		<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	 -->
+	<!-- 중요중요중요!!!1 환경 설정은 그대로 복사 해서 사용하시고 base-package 만 추가 삭제 변경 하면 됨!!!   -->
+	<!-- component-scan영역을 1개이상 지정 할 수 있음 -->
+	<!-- base-package값을 "," 구분자를 사용함!  -->
+	<context:component-scan base-package="kr.or.nextit, kr.or.admin">
+	<!-- 스캔 영역을 지정... -->
+	<!--필터 적용 (web.xml <servlet-name> appServlet</servlet-name>서블릿이 작동시..스캔을함!) -->
+	
+	<context:include-filter type="annotation" expression="org.springFramework.stereotype.Service" />
+	<context:include-filter type="annotation" expression="org.springFramework.stereotype.Repository" />
+	
+	<!-- 필터 미적용 -->
+	<context:exclude-filter type="annotation" expression="org.springFramework.stereotype.Controller" />
+	</context:component-scan>
+		
+		
+</beans>

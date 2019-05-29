@@ -1,0 +1,70 @@
+package kr.or.nextit.board.service.impl;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.or.nextit.board.service.BoardSearchVo;
+import kr.or.nextit.board.service.BoardService;
+import kr.or.nextit.board.service.BoardVo;
+@Service("BoardService")
+public class BoardServiceImpl implements BoardService {
+
+	@Autowired //스프링프레임워크가 자동으로 싱글톤으로 인스턴스 가져온다아아아아ㅏ아아
+	private BoardMapper boardMapper ;
+
+	@Override
+	public List<BoardVo> selectBoardList(BoardSearchVo searchVo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try {
+			List<BoardVo> resultList = boardMapper.selectBoardList(searchVo);
+			
+			return resultList;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			//return null;
+			throw new SQLException("질의어 수행중 에러 발생하였습니다(*Mapper.xml확인부탁)",e);
+		}
+		
+	}
+
+	@Override
+	public void insertBoardInfo(BoardVo boardVo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+		boardMapper.insertBoardInfo(boardVo);
+		
+		
+		
+	}
+
+	@Override
+	public BoardVo selectBoardInfo(String seqNo) throws Exception {
+		// TODO Auto-generated method stub
+		//seqNo 값에 해당하는 조회수를 +1 증가 시킴!
+		boardMapper.updateBoardInfoCnt(seqNo);
+		//boardMapper.updateBoardInfoCnt(seqNo);
+		
+		//seqNo값에 해당하는 정보를 조회...
+		BoardVo boardVo = boardMapper.selectBoardInfo(seqNo);
+		
+		return boardVo;
+	}
+
+	@Override
+	public void deleteBoardInfo(HashMap<String, Object> params) throws Exception {
+		// TODO Auto-generated method stub
+		
+		 boardMapper.deleteBoardInfo(params);
+		
+	}
+	
+	
+}

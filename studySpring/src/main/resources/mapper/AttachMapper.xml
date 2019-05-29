@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.nextit.attach.service.impl.AttachMapper">
+
+	<insert id="insertFileInfo" parameterType="kr.or.nextit.attach.service.AttachVo">
+	
+		INSERT INTO tb_com_attach (
+	    group_seq_no,
+	    seq_no,
+	    service_type,
+	    file_name,
+	    file_down_cnt,
+	    save_path,
+	    save_name,
+	    save_content_type,
+	    save_size,
+	    usr_ip,
+	    del_at,
+	    reg_user,
+	    reg_dt
+		) VALUES (
+	    #{groupSeqNo},
+	    SEQ_TB_COM_ATTACH.NEXTVAL,
+	    #{serviceType},
+	    #{fileName},
+	    0,
+	    #{savePath},
+	    #{saveName},
+	    #{saveContentType},
+	    #{saveSize},
+	    #{usrIp},
+	    'N',
+	    #{regUser},
+		sysdate
+		)
+	
+	
+	</insert>
+
+	<update id="updateFileInfoCnt" parameterType="int">
+	
+			UPDATE tb_com_attach
+		SET
+		    file_down_cnt = file_down_cnt + 1
+		WHERE
+		  	seq_no = #{value}
+		  
+	
+	
+	
+	</update>
+
+
+
+
+	<select id="selectFileInfo" parameterType="int" resultType="kr.or.nextit.attach.service.AttachVo">
+	
+		SELECT
+		    group_seq_no,
+		    seq_no,
+		    service_type,
+		    file_name,
+		    file_down_cnt,
+		    save_path,
+		    save_name,
+		    save_content_type,
+		    save_size,
+		    usr_ip,
+		    del_at,
+		    reg_user,
+		    reg_dt
+		FROM
+		    tb_com_attach
+		    
+		    where seq_no = #{value}
+	
+	
+	</select>
+
+
+
+
+
+
+
+<select id="selectFileList" parameterType="string" 
+	resultType="kr.or.nextit.attach.service.AttachVo">
+	
+			SELECT
+		    group_seq_no,
+		    seq_no,
+		    service_type,
+		    file_name,
+		    file_down_cnt,
+		    save_path,
+		    save_name,
+		    save_content_type,
+		    save_size,
+		    usr_ip,
+		    del_at,
+		    reg_user,
+		    reg_dt
+		FROM
+		    tb_com_attach
+		    
+		    where group_seq_no = #{groupSeqNo}
+		    
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

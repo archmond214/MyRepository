@@ -36,7 +36,6 @@
   <link type="text/css" href="<c:url value="css/freelancer.min.css"/>" rel="stylesheet">
  <sitemesh:write property='head'/>
 </head>
-
 <body id="page-top">
 
   <!-- Navigation -->
@@ -72,6 +71,7 @@
       <h2 class="font-weight-light mb-0">Web Developer - Graphic Artist - User Experience Designer</h2>
     </div>
   </header>
+  <sitemesh:write property='body'/>
 
   <!-- Portfolio Grid Section -->
   <section class="portfolio" id="portfolio">
@@ -216,8 +216,7 @@
   
   
   
-  
-  <sitemesh:write property='body'/>
+
   
   
 
@@ -430,6 +429,8 @@
 
   <!-- Custom scripts for this template -->
   <script src="<c:url value="/resources/js/freelancer.min.js"/>"></script>
+    
+
 </body>
 
 </html>

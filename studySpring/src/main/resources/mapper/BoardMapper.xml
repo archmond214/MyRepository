@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.nextit.board.service.impl.BoardMapper">
+
+	<resultMap type="kr.or.nextit.board.service.BoardVo" id="boardMap">
+		<id property="seqNo" 			column="seq_no" />
+		<result property="num" 			column="num" />
+		<result property="serviceType"  column="service_type" />
+		<result property="title" 		column="title" />
+		<result property="contents" 	column="contents" />
+		<result property="readCount" 	column="read_count" />
+		<result property="usrIp" 		column="usr_ip" />
+		<result property="delAt" 		column="del_at" />
+		<result property="regUser" 		column="reg_user" />
+		<result property="regDt" 		column="reg_dt" />
+		<result property="updUser" 		column="upd_user" />
+		<result property="updDt" 		column="upd_dt" />
+	</resultMap>
+
+	<select id="selectBoardList" parameterType="kr.or.nextit.board.service.BoardSearchVo"
+								 resultMap="boardMap">
+	
+		select rownum as num , temp_board.*
+			from(
+				SELECT 
+				    seq_no,
+				    service_type,
+				    title,
+				    contents,
+				    read_count,
+				    usr_ip,
+				    del_at,
+				    reg_user,
+				    reg_dt,
+				    upd_user,
+				    upd_dt
+				FROM
+				    tb_com_board
+				    where del_at in ('N')
+				    order by upd_dt desc 
+				    )temp_board
+				    
+	</select>
+	
+	<insert id="insertBoardInfo" parameterType="kr.or.nextit.board.service.BoardVo"
+		keyColumn="seq_no" keyProperty="seqNo" useGeneratedKeys="true"
+		>
+	
+		INSERT INTO tb_com_board (
+		    seq_no,
+		    service_type,
+		    title,
+		    contents,
+		    read_count,
+		    usr_ip,
+		    del_at,
+		    reg_user,
+		    reg_dt,
+		    upd_user,
+		    upd_dt
+		) VALUES (
+		    SEQ_TB_COM_BOARD.nextval,
+		    #{serviceType},
+		    #{title},
+		    #{contents},
+		    0,
+		    #{usrIp},
+		    'N',
+		  	#{regUser},
+		    sysdate,
+		    #{regUser},
+		    sysdate
+		)
+    
+	
+	
+	</insert>
+
+
+	<select id="selectBoardInfo" parameterType="string" resultMap="boardMap">
+	
+	
+		SELECT 
+		    seq_no,
+		    service_type,
+		    title,
+		    contents,
+		    read_count,
+		    usr_ip,
+		    del_at,
+		    reg_user,
+		    reg_dt,
+		    upd_user,
+		    upd_dt
+		FROM
+		    tb_com_board
+		    where seq_no = #{seqNo}
+			
+	
+	</select>
+
+
+	<update id="updateBoardInfoCnt" parameterType="string">
+		  
+		    UPDATE tb_com_board
+			SET
+			    read_count = read_count + 1
+			WHERE
+			    seq_no = #{seqNo}
+			  
+	
+	</update>
+
+
+	<delete id="deleteBoardInfo" parameterType="hashMap">
+			
+	DELETE 	FROM tb_com_board	WHERE	seq_no = #{seqNo}
+			
+	</delete>
+
+
+	<update id="updateBoardInfo" parameterType="hashMap">
+	
+		UPDATE tb_com_board
+			SET
+				 service_type 	= #{serviceType},
+			     title 			= #{title},
+			     contents 		= #{contents},
+			     upd_user 		= #{updUser},
+			     upd_dt	    	= sysdate
+			WHERE
+			    seq_no = #{seqNo}
+		
+	</update>
+</mapper>
+
+

@@ -1,0 +1,72 @@
+package kr.or.nextit.board.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import kr.or.nextit.board.service.BoardSearchVo;
+import kr.or.nextit.board.service.BoardVo;
+
+@Mapper
+public interface BoardMapper {
+
+	/**
+	 * 비지니스 플로우에서 요쳥한 정보를 List 로 반환
+	 * @param searchVo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<BoardVo> selectBoardList(
+			BoardSearchVo searchVo
+			
+			) throws Exception ;
+	
+	
+	/**
+	 * 업무 플로우에서 처리된 값을 DB에  insert 질의어 수행...(DB에 적재(insert) 하는 기능...) 
+	 * @param boardVo
+	 * @throws Exception
+	 */
+	public void insertBoardInfo(
+			BoardVo boardVo
+			
+			) throws Exception ;
+	
+	/**
+	 * seqNo값에 해당하는 질의어 select --where 질의어 수행
+	 * @param seqNo
+	 * @return
+	 * @throws Exception
+	 */
+	public BoardVo selectBoardInfo(
+			String seqNo
+			) throws Exception;
+	
+	
+	/**
+	 * seqNo값에 해당하는 글을 보았을 경우 조회 수를 +1 시켜줄꺼임! 
+	 * @param seqNo
+	 * @throws Exception
+	 */
+	public void updateBoardInfoCnt(
+			String seqNo
+			) throws Exception;
+	
+	
+	
+	
+	/**
+	 * HashMap key seqNo값으로 delete 쿼리 수행..
+	 * Mybatis 는 insert,update,delete 결과를 반환 하지 않음!!!
+	 * @param params
+	 * @throws Exception
+	 */
+	public void deleteBoardInfo(
+			HashMap<String, Object> params
+			) throws Exception;
+	
+	
+	
+	
+}
