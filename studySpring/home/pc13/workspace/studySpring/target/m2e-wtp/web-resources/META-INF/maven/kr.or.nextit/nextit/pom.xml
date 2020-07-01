@@ -92,7 +92,7 @@
 		<dependency>
 		    <groupId>org.quartz-scheduler</groupId>
 		    <artifactId>quartz</artifactId>
-		    <version>2.3.1</version>
+		    <version>2.3.2</version>
 		</dependency>
 		<!-- 스프링 프레임 워크와 인터페이스를 통해서 quartz 서비스를 구동하기 위해 필수! -->
 		<!-- 스프링 프레임 워크를 사용할 경우에 간단한 인터페이스 제공을 하기 때문에 추가해주는것이 편리! -->
