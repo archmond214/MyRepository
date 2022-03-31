@@ -9,7 +9,7 @@
 	<properties>
 		<!-- maven 환경설정사용시 사용할 변수(properties) 값을 설정 하는 기능 --> 
 		<java-version>1.8</java-version>
-		<org.springframework-version>5.1.4.RELEASE</org.springframework-version>
+		<org.springframework-version>5.3.18</org.springframework-version>
 		<org.aspectj-version>1.9.3</org.aspectj-version>
 		<org.slf4j-version>1.7.26</org.slf4j-version>
 	</properties>
